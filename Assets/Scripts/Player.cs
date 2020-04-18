@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
@@ -12,12 +14,16 @@ public class Player : MonoBehaviour
     public float TorchlightLengthActive = 10f;
     public float TorchlightLength = 4f;
 
+    public float Health = 1.0f;
+
     private new Rigidbody rigidbody;
+    private Volume globalVolume;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         torchlightLight = Torchlight.GetComponent<Light>();
+        globalVolume = GameObject.Find("Global Volume").GetComponent<Volume>();
     }
 
     void Update()
@@ -42,6 +48,9 @@ public class Player : MonoBehaviour
         }
         TorchlightCollider.transform.localScale = torchColliderScale;
         TorchlightCollider.transform.localPosition = torchColliderPosition;
+
+        // Set vignette to health value
+        SetVignetteIntensity(1f - Health);
     }
 
     void FixedUpdate()
@@ -57,5 +66,11 @@ public class Player : MonoBehaviour
         return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1000, terrainLayerMask)
             ? hit.point
             : Vector3.zero;
+    }
+
+    private void SetVignetteIntensity(float value)
+    {
+        Vignette vignette;
+        if (globalVolume.profile.TryGet(out vignette)) vignette.intensity.value = value;
     }
 }
