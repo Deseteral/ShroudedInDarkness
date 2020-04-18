@@ -26,14 +26,9 @@ public class Player : MonoBehaviour
 
         // Rotation
         // TODO: Controller support
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 1000, (1 << 8)))
-        {
-            Vector3 diff = transform.position - hit.point;
-            float direction = Mathf.Atan2(diff.z, -diff.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, direction, 0f);
-        }
+        Vector3 diff = transform.position - GetMouseOnTerrain();
+        float direction = Mathf.Atan2(diff.z, -diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, direction, 0f);
 
         // Torchlight
         Vector3 torchColliderScale = TorchlightCollider.transform.localScale;
@@ -53,5 +48,14 @@ public class Player : MonoBehaviour
     {
         Vector3 delta = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         rigidbody.AddForce(delta * Speed, ForceMode.Force);
+    }
+
+    private Vector3 GetMouseOnTerrain()
+    {
+        const int terrainLayerMask = (1 << 8);
+        RaycastHit hit;
+        return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 1000, terrainLayerMask)
+            ? hit.point
+            : Vector3.zero;
     }
 }
