@@ -3,8 +3,13 @@
 public class Player : MonoBehaviour
 {
     public float Speed = 1000f;
+    public GameObject TorchlightCollider;
 
     private new Rigidbody rigidbody;
+
+    public bool IsTorchlightLong = false;
+    private float torchlightLengthLong = 10f;
+    private float torchlightLengthSmall = 4f;
 
     void Start()
     {
@@ -13,6 +18,7 @@ public class Player : MonoBehaviour
 
     void Update() 
     {
+        // Rotation
         // TODO: Controller support
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -22,6 +28,22 @@ public class Player : MonoBehaviour
             float direction = Mathf.Atan2(diff.z, -diff.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, direction, 0f);
         }
+
+        // Torchlight
+        Vector3 torchColliderScale = TorchlightCollider.transform.localScale;
+        Vector3 torchColliderPosition = TorchlightCollider.transform.localPosition;
+        if (IsTorchlightLong)
+        {
+            torchColliderScale.y = torchlightLengthLong;
+            torchColliderPosition.x = 2 + (torchlightLengthLong / 2);
+        } 
+        else 
+        {
+            torchColliderScale.y = torchlightLengthSmall;
+            torchColliderPosition.x = 2 + (torchlightLengthSmall / 2);
+        }
+        TorchlightCollider.transform.localScale = torchColliderScale;
+        TorchlightCollider.transform.localPosition = torchColliderPosition;
     }
 
     void FixedUpdate()
