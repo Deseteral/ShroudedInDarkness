@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour
 {
     public float Speed = 1000f;
+    public float DamageAmount = 0.01f;
 
     private GameObject torchlightCollider;
     private MeshCollider torchlightColliderActualColliderThatCollides;
@@ -59,6 +60,15 @@ public class Player : MonoBehaviour
 
         // Set vignette to health value
         SetVignetteIntensity(1f - Health);
+
+        // TODO: Check health and die
+        if (Health <= 0f)
+        {
+            Debug.Log("YOU DIED!");
+        }
+
+        // Restore health
+        ChangeHealth(DamageAmount * 0.5f);
     }
 
     void FixedUpdate()
@@ -66,6 +76,14 @@ public class Player : MonoBehaviour
         Vector3 delta = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 forceVec = (Quaternion.Euler(0, 45, 0) * (delta * Speed));
         rigidbody.AddForce(forceVec, ForceMode.Force);
+    }
+
+    void OnTriggerStay(Collider collider)
+    {
+        if (collider.name == "DamageCollider")
+        {
+            ChangeHealth(-DamageAmount);
+        }
     }
 
     private Vector3 GetMouseOnTerrain()
@@ -81,5 +99,11 @@ public class Player : MonoBehaviour
     {
         Vignette vignette;
         if (globalVolume.profile.TryGet(out vignette)) vignette.intensity.value = value;
+    }
+
+    private void ChangeHealth(float diff)
+    {
+        Health += diff;
+        if (Health > 1f) Health = 1f;
     }
 }
