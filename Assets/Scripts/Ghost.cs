@@ -34,7 +34,7 @@ public class Ghost : MonoBehaviour
     {
         if (collider.name == "TorchlightCollider" || collider.name == "CampfireTrigger")
         {
-            rigidbody.AddForce((-direction * Speed), ForceMode.Force);
+            rigidbody.AddForce((-direction * Speed * 0.5f), ForceMode.Force);
         }
     }
 }
