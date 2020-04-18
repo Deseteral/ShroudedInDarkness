@@ -8,7 +8,8 @@ public class Ghost : MonoBehaviour
     private new Rigidbody rigidbody;
 
     private GameObject torchlightCollider;
-    private bool reverseGoesBrr;
+
+    private Vector3 direction;
 
     void Start()
     {
@@ -19,23 +20,21 @@ public class Ghost : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 diff = transform.position - player.transform.position;
-        diff.y = 0f;
-        float direction = Mathf.Atan2(diff.z, -diff.x) * Mathf.Rad2Deg;
+        direction = (transform.position - player.transform.position);
+        direction.y = 0f;
+        direction *= -1f;
 
-        transform.rotation = Quaternion.Euler(0f, direction, 0f);
+        rigidbody.AddForce((direction.normalized * Speed), ForceMode.Force);
 
-        float actualSpeed = reverseGoesBrr ? Speed : -Speed;
-        rigidbody.AddForce((diff.normalized * actualSpeed), ForceMode.Force);    
+        float directionAngle = Mathf.Atan2(-direction.z, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, directionAngle, 0f);
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        if (collider.name == "TorchlightCollider") reverseGoesBrr = true;
-    }
-
-    void OnTriggerExit(Collider collider)
-    {
-        if (collider.name == "TorchlightCollider") reverseGoesBrr = false;
+        if (collider.name == "TorchlightCollider" || collider.name == "CampfireTrigger")
+        {
+            rigidbody.AddForce((-direction * Speed), ForceMode.Force);
+        }
     }
 }

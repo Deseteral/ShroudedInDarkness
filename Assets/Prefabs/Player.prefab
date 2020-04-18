@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1916575773}
   - component: {fileID: 1916575774}
+  - component: {fileID: 1916575775}
   m_Layer: 0
   m_Name: TorchlightPointLight
   m_TagString: Untagged
@@ -42,7 +43,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.8784314, g: 0.44705883, b: 0, a: 1}
+  m_Color: {r: 0.98039216, g: 0.6666667, b: 0.078431375, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
@@ -85,13 +86,25 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1916575775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916575772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353fc7b1c03ca4069a62f19beb1edb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!64 &6162310273552583939
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -234,8 +247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1000
-  TorchlightCollider: {fileID: 2784633720202592908}
-  Torchlight: {fileID: 6162310273703841174}
   IsTorchlightActive: 0
   TorchlightLengthActive: 10
   TorchlightLength: 4
@@ -250,6 +261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6162310273703841172}
   - component: {fileID: 6162310273703841175}
+  - component: {fileID: 1474176651}
   m_Layer: 0
   m_Name: Torchlight
   m_TagString: Untagged
@@ -282,7 +294,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.8773585, g: 0.4466863, b: 0, a: 1}
+  m_Color: {r: 0.98039216, g: 0.6666667, b: 0.078431375, a: 1}
   m_Intensity: 40
   m_Range: 50
   m_SpotAngle: 100
@@ -325,13 +337,25 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1474176651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6162310273703841174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353fc7b1c03ca4069a62f19beb1edb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6162310271966600069
 PrefabInstance:
   m_ObjectHideFlags: 0
