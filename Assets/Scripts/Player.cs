@@ -6,8 +6,7 @@ public class Player : MonoBehaviour
 {
     public float Speed = 1000f;
 
-    public GameObject TorchlightCollider;
-    public GameObject Torchlight;
+    private GameObject torchlightCollider;
     private Light torchlightLight;
 
     public bool IsTorchlightActive = false;
@@ -22,8 +21,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        torchlightLight = Torchlight.GetComponent<Light>();
+        torchlightLight = GameObject.Find("Player/Torchlight").GetComponent<Light>();
         globalVolume = GameObject.Find("Global Volume").GetComponent<Volume>();
+        torchlightCollider = GameObject.Find("Player/TorchlightCollider");
     }
 
     void Update()
@@ -37,17 +37,19 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, direction, 0f);
 
         // Torchlight
-        Vector3 torchColliderScale = TorchlightCollider.transform.localScale;
-        Vector3 torchColliderPosition = TorchlightCollider.transform.localPosition;
+        Vector3 torchColliderScale = torchlightCollider.transform.localScale;
+        Vector3 torchColliderPosition = torchlightCollider.transform.localPosition;
         {
             float actualLightLength = IsTorchlightActive ? TorchlightLengthActive : TorchlightLength;
 
             torchColliderScale.y = actualLightLength;
             torchColliderPosition.x = (actualLightLength / 2) + 2;
-            torchlightLight.range = (actualLightLength * 2) + 2;
+            torchlightLight.range = (actualLightLength * 4);
+
+            torchlightLight.intensity += ((IsTorchlightActive ? 80f : 15f) - torchlightLight.intensity) * 0.1f;
         }
-        TorchlightCollider.transform.localScale = torchColliderScale;
-        TorchlightCollider.transform.localPosition = torchColliderPosition;
+        torchlightCollider.transform.localScale = torchColliderScale;
+        torchlightCollider.transform.localPosition = torchColliderPosition;
 
         // Set vignette to health value
         SetVignetteIntensity(1f - Health);

@@ -4,11 +4,10 @@ public class CameraFollow : MonoBehaviour
 {
     public GameObject Target;
 
-    private Vector3 offset;
+    private Vector3 offset = new Vector3(0f, 10f, -6f);
 
     void Start()
     {
-        offset = transform.position - Target.transform.position;
     }
 
     void LateUpdate()
