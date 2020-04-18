@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float Speed = 1000f;
 
     private GameObject torchlightCollider;
+    private MeshCollider torchlightColliderActualColliderThatCollides;
     private Light torchlightLight;
 
     public bool IsTorchlightActive = false;
@@ -24,11 +25,16 @@ public class Player : MonoBehaviour
         torchlightLight = GameObject.Find("Player/Torchlight").GetComponent<Light>();
         globalVolume = GameObject.Find("Global Volume").GetComponent<Volume>();
         torchlightCollider = GameObject.Find("Player/TorchlightCollider");
+        torchlightColliderActualColliderThatCollides = torchlightCollider.GetComponent<MeshCollider>();
     }
 
     void Update()
     {
+        // Get input
         IsTorchlightActive = Input.GetMouseButton(0);
+
+        // Activate collider
+        torchlightColliderActualColliderThatCollides.enabled = IsTorchlightActive;
 
         // Rotation
         // TODO: Controller support

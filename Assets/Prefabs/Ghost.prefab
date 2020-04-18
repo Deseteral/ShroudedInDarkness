@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2287863503140835277}
   - component: {fileID: 2287863503140835278}
   - component: {fileID: 2287863503140835279}
-  - component: {fileID: 2287863503140835272}
   - component: {fileID: 2287863503140835273}
   - component: {fileID: 2287863503140835276}
+  - component: {fileID: 6875082077895208308}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -82,19 +82,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2287863503140835272
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2287863503140835274}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2287863503140835273
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -105,7 +92,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 80
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -124,3 +111,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1500
+--- !u!136 &6875082077895208308
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2287863503140835274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
