@@ -3,21 +3,27 @@
 public class Player : MonoBehaviour
 {
     public float Speed = 1000f;
+
     public GameObject TorchlightCollider;
+    public GameObject Torchlight;
+    private Light torchlightLight;
+
+    public bool IsTorchlightActive = false;
+    public float TorchlightLengthActive = 10f;
+    public float TorchlightLength = 4f;
 
     private new Rigidbody rigidbody;
-
-    public bool IsTorchlightLong = false;
-    private float torchlightLengthLong = 10f;
-    private float torchlightLengthSmall = 4f;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        torchlightLight = Torchlight.GetComponent<Light>();
     }
 
-    void Update() 
+    void Update()
     {
+        IsTorchlightActive = Input.GetMouseButton(0);
+
         // Rotation
         // TODO: Controller support
         RaycastHit hit;
@@ -32,15 +38,12 @@ public class Player : MonoBehaviour
         // Torchlight
         Vector3 torchColliderScale = TorchlightCollider.transform.localScale;
         Vector3 torchColliderPosition = TorchlightCollider.transform.localPosition;
-        if (IsTorchlightLong)
         {
-            torchColliderScale.y = torchlightLengthLong;
-            torchColliderPosition.x = 2 + (torchlightLengthLong / 2);
-        } 
-        else 
-        {
-            torchColliderScale.y = torchlightLengthSmall;
-            torchColliderPosition.x = 2 + (torchlightLengthSmall / 2);
+            float actualLightLength = IsTorchlightActive ? TorchlightLengthActive : TorchlightLength;
+
+            torchColliderScale.y = actualLightLength;
+            torchColliderPosition.x = (actualLightLength / 2) + 2;
+            torchlightLight.range = (actualLightLength * 2) + 2;
         }
         TorchlightCollider.transform.localScale = torchColliderScale;
         TorchlightCollider.transform.localPosition = torchColliderPosition;
