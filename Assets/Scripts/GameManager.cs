@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     {
         float timeProgress = DEBUG_DayNightCycle 
             ? (((Time.timeSinceLevelLoad % DAY_NIGHT_CYCLE_SEC) / DAY_NIGHT_CYCLE_SEC) * 360)
-            : 90f;
+            : 20f;
         Sun.transform.rotation = Quaternion.Euler(timeProgress, -30, 0);
     }
 }
