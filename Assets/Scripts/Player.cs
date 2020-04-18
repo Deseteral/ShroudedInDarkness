@@ -64,7 +64,8 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 delta = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        rigidbody.AddForce(delta * Speed, ForceMode.Force);
+        Vector3 forceVec = (Quaternion.Euler(0, 45, 0) * (delta * Speed));
+        rigidbody.AddForce(forceVec, ForceMode.Force);
     }
 
     private Vector3 GetMouseOnTerrain()
