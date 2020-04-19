@@ -22,9 +22,7 @@ public class BlueLogs : MonoBehaviour
 
         // Set text opacity
         float targetOpacity = isPlayerInRange ? 1f : 0f;
-        float alpha = PickUpText.color.a;
-        alpha += (targetOpacity - alpha) * 0.05f;
-        PickUpText.color = new Color(PickUpText.color.r, PickUpText.color.g, PickUpText.color.b, alpha);
+        EaseTextOpacity(PickUpText, targetOpacity);
 
         // Collect wood
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
@@ -32,5 +30,12 @@ public class BlueLogs : MonoBehaviour
             gameManager.PickUpWood();
             Destroy(this.gameObject);
         }
+    }
+
+    private void EaseTextOpacity(Text text, float targetOpacity)
+    {
+        float alpha = text.color.a;
+        alpha += (targetOpacity - alpha) * 0.05f;
+        text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
     }
 }
