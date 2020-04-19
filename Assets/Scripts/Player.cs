@@ -76,6 +76,7 @@ public class Player : MonoBehaviour
                 {
                     Vector3 bpos = transform.position;
                     bpos.y += 0.5f;
+                    bpos += (transform.right * 2f);
                     GameObject b = Instantiate(Bullet, bpos, transform.rotation);
                 }
             }
@@ -183,6 +184,8 @@ public class Player : MonoBehaviour
     public void SetWandMode()
     {
         wandMode = true;
+
+        torchlightCollider.SetActive(false);
         torchlightColliderActualColliderThatCollides.enabled = false;
 
         AttackTime = 0.25f;

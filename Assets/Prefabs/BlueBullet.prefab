@@ -4869,6 +4869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1161428645025106452}
   - component: {fileID: 7328946227186504996}
+  - component: {fileID: 1764004389157904562}
   m_Layer: 0
   m_Name: BlueBullet
   m_TagString: Untagged
@@ -4906,6 +4907,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 20
+--- !u!135 &1764004389157904562
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885325172169292200}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8425904846468077577
 GameObject:
   m_ObjectHideFlags: 0
@@ -4917,7 +4931,6 @@ GameObject:
   - component: {fileID: 6279741714384226885}
   - component: {fileID: 6188266004131057921}
   - component: {fileID: 3487128325370589655}
-  - component: {fileID: 2580075561495206892}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -4986,16 +4999,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &2580075561495206892
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8425904846468077577}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

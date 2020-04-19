@@ -15,4 +15,9 @@ public class BlueBullet : MonoBehaviour
         pos += (transform.forward * (Speed * Time.deltaTime));
         transform.position = pos;
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Destroy(this.gameObject);
+    }
 }
