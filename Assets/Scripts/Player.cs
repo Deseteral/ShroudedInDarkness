@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public float Speed = 1000f;
     public float DamageAmount = 0.1f;
+    public GameObject Bullet;
 
     private GameObject torchlightCollider;
     private MeshCollider torchlightColliderActualColliderThatCollides;
@@ -53,6 +54,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // Rotation
+        // TODO: Controller support
+        Vector3 diff = transform.position - GetMouseOnTerrain();
+        float direction = Mathf.Atan2(diff.z, -diff.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, direction, 0f);
+
         // Atack logic
         if (Time.timeSinceLevelLoad >= canAttackAfter) // Can attack
         {
@@ -65,7 +72,12 @@ public class Player : MonoBehaviour
                 noLongerAttackingAfter = (Time.timeSinceLevelLoad + AttackTime);
                 torchlightPivotTargetRotation = -112f;
 
-                if (wandMode) Debug.Log("pew pew");
+                if (wandMode)
+                {
+                    Vector3 bpos = transform.position;
+                    bpos.y += 0.5f;
+                    GameObject b = Instantiate(Bullet, bpos, transform.rotation);
+                }
             }
         }
         else
@@ -87,12 +99,6 @@ public class Player : MonoBehaviour
 
         // Activate collider
         torchlightColliderActualColliderThatCollides.enabled = IsTorchlightActive;
-
-        // Rotation
-        // TODO: Controller support
-        Vector3 diff = transform.position - GetMouseOnTerrain();
-        float direction = Mathf.Atan2(diff.z, -diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, direction, 0f);
 
         // Torchlight
         Vector3 torchColliderScale = torchlightCollider.transform.localScale;
