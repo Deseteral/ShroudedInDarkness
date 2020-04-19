@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         woodCountText = GameObject.Find("GameManager/Canvas/WoodCountText").GetComponent<Text>();
+        totalWoodCount = GameObject.FindGameObjectsWithTag("BlueLogs").Length;
     }
 
     void Update()
