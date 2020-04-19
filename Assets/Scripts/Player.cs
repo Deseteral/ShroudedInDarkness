@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
 
     private Vector3 spawnPoint;
+    private bool deathFlag = false;
 
     void Start()
     {
@@ -105,18 +106,17 @@ public class Player : MonoBehaviour
         torchlightCollider.transform.localPosition = torchColliderPosition;
 
         // Set vignette to health value
-        SetVignetteIntensity(1f - Health);
+        // SetVignetteIntensity(1f - Health);
 
         // TODO: Check health and die
-        if (Health <= 0f)
+        if (!deathFlag && Health <= 0f)
         {
+            deathFlag = true;
             gameManager.PlayerDies();
-            Health = 1f;
-            transform.position = spawnPoint;
         }
 
         // Restore health
-        ChangeHealth(DamageAmount * 0.5f);
+        // ChangeHealth(DamageAmount * 0.5f);
     }
 
     void FixedUpdate()
@@ -161,5 +161,12 @@ public class Player : MonoBehaviour
     {
         Health += diff;
         if (Health > 1f) Health = 1f;
+    }
+
+    public void Respawn()
+    {
+        Health = 1f;
+        transform.position = spawnPoint;
+        deathFlag = false;
     }
 }

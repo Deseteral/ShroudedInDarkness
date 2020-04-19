@@ -10,9 +10,14 @@ public class GameManager : MonoBehaviour
     // UI
     private GameObject woodCountText;
     private GameObject allWoodText;
+    private GameObject deathText;
     private GameObject blackScreen;
 
     private GameObject campfireLight;
+
+    private TimeProgress deathScreenTimer = new TimeProgress();
+
+    private GameObject player;
 
     void Start()
     {
@@ -20,13 +25,23 @@ public class GameManager : MonoBehaviour
 
         woodCountText = GameObject.Find("GameManager/Canvas/WoodCountText");
         allWoodText = GameObject.Find("GameManager/Canvas/AllWoodText");
+        deathText = GameObject.Find("GameManager/Canvas/DeathText");
         blackScreen = GameObject.Find("GameManager/Canvas/BlackScreen");
 
         campfireLight = GameObject.Find("Campfire/Point Light");
+
+        player = GameObject.Find("Player");
     }
 
     void Update()
     {
+        if (deathScreenTimer.IsDone())
+        {
+            player.GetComponent<Player>().Respawn();
+            deathText.GetComponent<UITextFader>().FadeOut(2f);
+            blackScreen.GetComponent<UIImageFader>().FadeOut(2f);
+            deathScreenTimer.Reset();
+        }
     }
 
     public void PickUpWood()
@@ -58,6 +73,8 @@ public class GameManager : MonoBehaviour
     {
         deadWood = CollectedWood;
         CollectedWood = 0;
-        blackScreen.GetComponent<UIImageFader>().FadeOut(2f);
+        blackScreen.GetComponent<UIImageFader>().FadeIn(3f);
+        deathText.GetComponent<UITextFader>().FadeIn(3f);
+        deathScreenTimer.Start(3f + 3f);
     }
 }

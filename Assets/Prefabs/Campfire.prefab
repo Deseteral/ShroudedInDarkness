@@ -4799,6 +4799,50 @@ CapsuleCollider:
   m_Height: 20
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1667046501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1667046502}
+  - component: {fileID: 1667046503}
+  m_Layer: 0
+  m_Name: InnerCampfireTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1667046502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667046501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1473779164096999123}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1667046503
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667046501}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 11
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &931162511130284362
 GameObject:
   m_ObjectHideFlags: 0
@@ -4849,6 +4893,7 @@ GameObject:
   - component: {fileID: 1473779162501338175}
   - component: {fileID: 1473779162501338173}
   - component: {fileID: 1473779162501338172}
+  - component: {fileID: 1428222038}
   m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
@@ -4943,6 +4988,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353fc7b1c03ca4069a62f19beb1edb12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1428222038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473779162501338174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636af9db220ce4c1bb99a5b8ee6c0767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1473779164096999122
 GameObject:
   m_ObjectHideFlags: 0
@@ -4975,6 +5032,7 @@ Transform:
   - {fileID: 725860281}
   - {fileID: 3176001526298459465}
   - {fileID: 176592145}
+  - {fileID: 1667046502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

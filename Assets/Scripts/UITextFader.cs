@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UIImageFader : MonoBehaviour
+public class UITextFader : MonoBehaviour
 {
     private TimeProgress timeProgress = new TimeProgress();
-    private Image image;
+    private Text text;
     public float TargetAlpha = 0f;
 
     void Start()
     {
-        image = GetComponent<Image>();
+        text = GetComponent<Text>();
     }
 
     void Update()
     {
-        Color c = image.color;
+        Color c = text.color;
         c.a = Mathf.Lerp(c.a, TargetAlpha, timeProgress.GetProgress());
-        image.color = c;
+        text.color = c;
     }
 
     public void FadeIn(float duration)
