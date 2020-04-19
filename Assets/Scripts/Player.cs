@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     private GameObject torchlightPivot;
     private float torchlightPivotTargetRotation = 0f;
 
+    private GameManager gameManager;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
         torchlightCollider = GameObject.Find("Player/TorchlightCollider");
         torchlightColliderActualColliderThatCollides = torchlightCollider.GetComponent<MeshCollider>();
         torchlightPivot = GameObject.Find("Player/TorchlightPivot");
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -116,6 +119,14 @@ public class Player : MonoBehaviour
         Vector3 delta = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 forceVec = (Quaternion.Euler(0, 45, 0) * (delta * Speed));
         rigidbody.AddForce(forceVec, ForceMode.Force);
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.name == "InnerCampfireTrigger")
+        {
+            gameManager.PlayerEnteredCampfire();
+        }
     }
 
     void OnTriggerStay(Collider collider)
