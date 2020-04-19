@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     public int CollectedWood = 0;
     private int totalWoodCount = 12;
 
+    private int ghostCount;
+
     // UI
     private GameObject blackScreen;
     private GameObject woodCountText;
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         totalWoodCount = GameObject.FindGameObjectsWithTag("BlueLogs").Length;
+        ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length;
 
         woodCountText = GameObject.Find("GameManager/Canvas/WoodCountText");
         allWoodText = GameObject.Find("GameManager/Canvas/AllWoodText");
@@ -84,5 +87,15 @@ public class GameManager : MonoBehaviour
         blackScreen.GetComponent<UIImageFader>().FadeIn(3f);
         deathText.GetComponent<UITextFader>().FadeIn(3f);
         deathScreenTimer.Start(3f + 3f);
+    }
+
+    public void GhostDied()
+    {
+        ghostCount -= 1;
+
+        if (ghostCount == 0) // Stage 2 complete
+        {
+            Debug.Log("stage 2 complete");
+        }
     }
 }

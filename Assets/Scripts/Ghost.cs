@@ -21,6 +21,11 @@ public class Ghost : MonoBehaviour
     private Vector3? runAwayDirection;
     private TimeProgress runAwayTimeProgress = new TimeProgress();
 
+    public float Health = 1f;
+    public GameObject Explosion;
+
+    private GameManager gameManager;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -29,6 +34,8 @@ public class Ghost : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         torchlightCollider = GameObject.Find("Player/TorchlightCollider");
         campfire = GameObject.Find("Campfire");
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -81,6 +88,14 @@ public class Ghost : MonoBehaviour
         // Rotate towards movement direction
         float directionAngle = Mathf.Atan2(-direction.z, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, directionAngle, 0f);
+
+        // Check health
+        if (Health < 0f)
+        {
+            gameManager.GhostDied();
+            Instantiate(Explosion, transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
+        }
     }
 
     void FixedUpdate()
@@ -108,6 +123,14 @@ public class Ghost : MonoBehaviour
             runAwayDirection = dir;
             runAwayTimeProgress.Start(5f);
             trackingPlayer = false;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Bullet")
+        {
+            Health -= 0.4f;
         }
     }
 }
