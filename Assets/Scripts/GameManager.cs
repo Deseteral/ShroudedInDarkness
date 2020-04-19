@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public int CollectedWood = 0;
     private int totalWoodCount = 12;
-    private int deadWood = 0;
 
     // UI
     private GameObject woodCountText;
@@ -71,8 +70,6 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDies()
     {
-        deadWood = CollectedWood;
-        CollectedWood = 0;
         blackScreen.GetComponent<UIImageFader>().FadeIn(3f);
         deathText.GetComponent<UITextFader>().FadeIn(3f);
         deathScreenTimer.Start(3f + 3f);
