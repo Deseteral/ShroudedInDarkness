@@ -8,6 +8,7 @@ TagManager:
   - BlueLogs
   - Bullet
   - Ghost
+  - GhostRage
   layers:
   - Default
   - TransparentFX

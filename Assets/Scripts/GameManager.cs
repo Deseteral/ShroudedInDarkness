@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         totalWoodCount = GameObject.FindGameObjectsWithTag("BlueLogs").Length;
-        ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length;
+        ghostCount = GameObject.FindGameObjectsWithTag("GhostRage").Length;
+        Debug.Log("Ghosts to kill " + ghostCount);
 
         woodCountText = GameObject.Find("GameManager/Canvas/WoodCountText");
         allWoodText = GameObject.Find("GameManager/Canvas/AllWoodText");
