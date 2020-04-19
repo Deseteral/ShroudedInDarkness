@@ -5152,15 +5152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b39e9b20696014035bcb7137f88c7c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1000
+  Speed: 2000
   DamageAmount: 0.01
   Bullet: {fileID: 7885325172169292200, guid: b76829122257544b4ada8b818003b29e, type: 3}
   IsTorchlightActive: 0
   TorchlightLengthActive: 10
   TorchlightLength: 4
-  Health: 1
+  Health: 1999
   AttackTime: 2
   AttackRechargeTime: 3
+  MovementEnabled: 1
 --- !u!1 &6162310273703841174
 GameObject:
   m_ObjectHideFlags: 0

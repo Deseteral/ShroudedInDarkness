@@ -41,10 +41,10 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         // AI, set target
-        if (runAwayDirection == null)
+        if (runAwayDirection == null || tag == "GhostRage")
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            bool canSeePlayer = (distanceToPlayer <= TargettingDistance);
+            bool canSeePlayer = (distanceToPlayer <= TargettingDistance) || tag == "GhostRage";
 
             if (!canSeePlayer && (confiusionTargetTime > Time.timeSinceLevelLoad))
             {
@@ -92,7 +92,7 @@ public class Ghost : MonoBehaviour
         // Check health
         if (Health < 0f)
         {
-            gameManager.GhostDied();
+            if (tag == "GhostRage") gameManager.GhostDied();
             Instantiate(Explosion, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
@@ -110,11 +110,11 @@ public class Ghost : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.name == "TorchlightCollider")
+        if (collider.name == "TorchlightCollider" && tag != "GhostRage")
         {
             rigidbody.AddForce((-direction * ReceivedAttackForce), ForceMode.Impulse);
         }
-        else if (collider.name == "CampfireTrigger")
+        else if (collider.name == "CampfireTrigger" && tag != "GhostRage")
         {
             Vector3 cv = campfire.transform.position;
             Vector3 dir = cv - transform.position;

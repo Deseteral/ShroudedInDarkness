@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     private int totalWoodCount = 12;
 
     private int ghostCount;
+    private GameObject[] rageGhosts;
 
     // UI
     private GameObject blackScreen;
@@ -27,13 +29,18 @@ public class GameManager : MonoBehaviour
     private TimeProgress postIntroTimer = new TimeProgress();
     private TimeProgress beforeEndingTimer = new TimeProgress();
 
-    private bool transitionToStageOneComplete = false;
+    private bool transitionToStageTwoComplete = false;
 
     void Start()
     {
         totalWoodCount = GameObject.FindGameObjectsWithTag("BlueLogs").Length;
-        ghostCount = GameObject.FindGameObjectsWithTag("GhostRage").Length;
-        Debug.Log("Ghosts to kill " + ghostCount);
+        rageGhosts = GameObject.FindGameObjectsWithTag("GhostRage");
+        foreach (GameObject g in rageGhosts)
+        {
+            g.SetActive(false);
+        }
+        ghostCount = rageGhosts.Length;
+        Debug.Log("ghostCount " + ghostCount);
 
         woodCountText = GameObject.Find("GameManager/Canvas/WoodCountText");
         allWoodText = GameObject.Find("GameManager/Canvas/AllWoodText");
@@ -72,6 +79,16 @@ public class GameManager : MonoBehaviour
         {
             postIntroText.GetComponent<UITextFader>().FadeOut(2f);
             postIntroTimer.Reset();
+        }
+
+        if (dialogSystem.HasFinished("BlueFire"))
+        {
+            // Activate new ghosts
+            foreach (GameObject g in rageGhosts)
+            {
+                g.SetActive(true);
+            }
+            Debug.Log("Ghosts to kill " + ghostCount);
         }
 
         // Ending sequence
@@ -115,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerEnteredCampfire()
     {
-        if (CollectedWood == totalWoodCount && !transitionToStageOneComplete) // Stage 1 complete
+        if (CollectedWood == totalWoodCount && !transitionToStageTwoComplete) // Stage 1 complete
         {
             Debug.Log("stage 1 complete");
             dialogSystem.ChangeActive(true, "BlueFire");
@@ -129,7 +146,13 @@ public class GameManager : MonoBehaviour
             // Set player wand mode
             player.GetComponent<Player>().SetWandMode();
 
-            transitionToStageOneComplete = true;
+            // Kill old ghosts
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Ghost"))
+            {
+                Destroy(g.gameObject);
+            }
+
+            transitionToStageTwoComplete = true;
         }
     }
 
