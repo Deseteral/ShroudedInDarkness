@@ -63,8 +63,13 @@ public class GameManager : MonoBehaviour
         if (CollectedWood == totalWoodCount) // Stage 1 complete
         {
             Debug.Log("stage 1 complete");
+
+            // Change fire color
             Color targetColor = new Color((65f / 255f), (20f / 255f), (121f / 255f), 1f);
             campfireLight.GetComponent<LightColorChange>().ChangeColor(targetColor, 7f);
+
+            // Set player wand mode
+            player.GetComponent<Player>().SetWandMode();
         }
     }
 

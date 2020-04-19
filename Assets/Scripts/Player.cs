@@ -21,8 +21,8 @@ public class Player : MonoBehaviour
     private new Rigidbody rigidbody;
     private Volume globalVolume;
 
-    public int AttackTime = 1;
-    public int AttackRechargeTime = 3;
+    public float AttackTime = 1f;
+    public float AttackRechargeTime = 3f;
     private float canAttackAfter = float.MinValue;
     private float noLongerAttackingAfter = float.MinValue;
 
@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
 
     private Vector3 spawnPoint;
     private bool deathFlag = false;
+
+    private bool wandMode = false;
 
     void Start()
     {
@@ -62,6 +64,8 @@ public class Player : MonoBehaviour
                 canAttackAfter = (Time.timeSinceLevelLoad + AttackTime + AttackRechargeTime);
                 noLongerAttackingAfter = (Time.timeSinceLevelLoad + AttackTime);
                 torchlightPivotTargetRotation = -112f;
+
+                if (wandMode) Debug.Log("pew pew");
             }
         }
         else
@@ -106,7 +110,7 @@ public class Player : MonoBehaviour
         torchlightCollider.transform.localPosition = torchColliderPosition;
 
         // Set vignette to health value
-        // SetVignetteIntensity(1f - Health);
+        SetVignetteIntensity(1f - Health);
 
         // TODO: Check health and die
         if (!deathFlag && Health <= 0f)
@@ -116,7 +120,7 @@ public class Player : MonoBehaviour
         }
 
         // Restore health
-        // ChangeHealth(DamageAmount * 0.5f);
+        ChangeHealth(DamageAmount * 0.5f);
     }
 
     void FixedUpdate()
@@ -168,5 +172,14 @@ public class Player : MonoBehaviour
         Health = 1f;
         transform.position = spawnPoint;
         deathFlag = false;
+    }
+
+    public void SetWandMode()
+    {
+        wandMode = true;
+        torchlightColliderActualColliderThatCollides.enabled = false;
+
+        AttackTime = 0.25f;
+        AttackRechargeTime = 0.25f;
     }
 }
