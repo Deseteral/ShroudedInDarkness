@@ -19,12 +19,16 @@ public class DialogSystem : MonoBehaviour
     private Color xColor = Color.blue;
     private Color noColor = new Color(0f, 0f, 0f, 0f);
 
+    private Player player;
+
     void Start()
     {
         dialogText = TextInstance.GetComponent<Text>();
 
         dialogs = new Dictionary<string, DialogLine[]>();
         dialogs["TestDialog"] = Dialogs.TestDialog;
+
+        player = GameObject.Find("Player").GetComponent<Player>();
 
         ChangeActive(true, "TestDialog");
     }
@@ -36,7 +40,7 @@ public class DialogSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) index += 1;
         if (index >= activeDialog.Length)
         {
-            Active = false;
+            ChangeActive(false, "");
             return;
         }
 
@@ -51,11 +55,13 @@ public class DialogSystem : MonoBehaviour
         {
             index = 0;
             activeDialog = dialogs[nextDialog];
+            player.MovementEnabled = false;
         }
         else
         {
             dialogText.color = noColor;
             activeDialog = null;
+            player.MovementEnabled = true;
         }
     }
 }

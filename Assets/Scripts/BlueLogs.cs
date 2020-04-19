@@ -14,7 +14,6 @@ public class BlueLogs : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -25,7 +24,7 @@ public class BlueLogs : MonoBehaviour
         EaseTextOpacity(PickUpText, targetOpacity);
 
         // Collect wood
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerInRange && player.GetComponent<Player>().MovementEnabled && Input.GetKeyDown(KeyCode.E))
         {
             gameManager.PickUpWood();
             Destroy(this.gameObject);

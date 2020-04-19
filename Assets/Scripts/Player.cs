@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
 
     private bool wandMode = false;
 
+    public bool MovementEnabled = true;
+
     void Start()
     {
         spawnPoint = transform.position;
@@ -58,14 +60,14 @@ public class Player : MonoBehaviour
         // TODO: Controller support
         Vector3 diff = transform.position - GetMouseOnTerrain();
         float direction = Mathf.Atan2(diff.z, -diff.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, direction, 0f);
+        if (MovementEnabled) transform.rotation = Quaternion.Euler(0f, direction, 0f);
 
         // Atack logic
         if (Time.timeSinceLevelLoad >= canAttackAfter) // Can attack
         {
             attackTimerProgress.fillAmount = 0f;
 
-            if (Input.GetMouseButton(0))
+            if (MovementEnabled && Input.GetMouseButton(0))
             {
                 IsTorchlightActive = true;
                 canAttackAfter = (Time.timeSinceLevelLoad + AttackTime + AttackRechargeTime);
@@ -132,9 +134,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 delta = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 forceVec = (Quaternion.Euler(0, 45, 0) * (delta * Speed));
-        rigidbody.AddForce(forceVec, ForceMode.Force);
+        if (MovementEnabled)
+        {
+            Vector3 delta = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Vector3 forceVec = (Quaternion.Euler(0, 45, 0) * (delta * Speed));
+            rigidbody.AddForce(forceVec, ForceMode.Force);
+        }
     }
 
     void OnTriggerEnter(Collider collider)
