@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
     private new Rigidbody rigidbody;
     private Volume globalVolume;
 
+    public int AttackTime = 1;
+    public int AttackRechargeTime = 4;
+    private float canAttackAfter = float.MinValue;
+    private float noLongerAttackingAfter = float.MinValue;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -31,8 +36,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Get input
-        IsTorchlightActive = Input.GetMouseButton(0);
+        // Is attacking
+        if (Time.timeSinceLevelLoad >= canAttackAfter && Input.GetMouseButton(0))
+        {
+            Debug.Log("new attack");
+            IsTorchlightActive = true;
+            canAttackAfter = (Time.timeSinceLevelLoad + AttackTime + AttackRechargeTime);
+            noLongerAttackingAfter = (Time.timeSinceLevelLoad + AttackTime);
+        }
+
+        if (IsTorchlightActive && (Time.timeSinceLevelLoad >= noLongerAttackingAfter))
+        {
+            Debug.Log("attack off");
+            IsTorchlightActive = false;
+        }
 
         // Activate collider
         torchlightColliderActualColliderThatCollides.enabled = IsTorchlightActive;
