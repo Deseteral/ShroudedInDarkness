@@ -25,7 +25,7 @@ public class Ghost : MonoBehaviour
         torchlightCollider = GameObject.Find("Player/TorchlightCollider");
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // AI, set target
         if (confiusionTargetTime > Time.timeSinceLevelLoad)
@@ -59,12 +59,19 @@ public class Ghost : MonoBehaviour
         direction.y = 0f;
         direction *= -1f;
 
-        // Actually move
-        rigidbody.AddForce((direction.normalized * Speed), ForceMode.Force);
-
         // Rotate towards movement direction
         float directionAngle = Mathf.Atan2(-direction.z, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, directionAngle, 0f);
+    }
+
+    void FixedUpdate()
+    {
+        // Actually move
+        float distanceToTarget = Vector3.Distance(transform.position, target);
+        if (distanceToTarget > 1f)
+        {
+            rigidbody.AddForce((direction.normalized * Speed), ForceMode.Force);
+        }
     }
 
     void OnTriggerStay(Collider collider)
