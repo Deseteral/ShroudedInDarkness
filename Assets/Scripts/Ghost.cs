@@ -8,6 +8,7 @@ public class Ghost : MonoBehaviour
 
     private GameObject player;
     private GameObject torchlightCollider;
+    private GameObject campfire;
     private new Rigidbody rigidbody;
 
     private Vector3 direction;
@@ -17,6 +18,9 @@ public class Ghost : MonoBehaviour
     private float confiusionTargetTime = float.MinValue;
     private bool trackingPlayer = false;
 
+    private Vector3? runAwayDirection;
+    private TimeProgress runAwayTimeProgress = new TimeProgress();
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -24,43 +28,55 @@ public class Ghost : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         torchlightCollider = GameObject.Find("Player/TorchlightCollider");
+        campfire = GameObject.Find("Campfire");
     }
 
     void Update()
     {
         // AI, set target
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        bool canSeePlayer = (distanceToPlayer <= TargettingDistance);
-
-        if (!canSeePlayer && (confiusionTargetTime > Time.timeSinceLevelLoad))
+        if (runAwayDirection == null)
         {
-            target = transform.position;
-        }
-        else
-        {
-            bool prevFrameTrackingPlayer = trackingPlayer;
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            bool canSeePlayer = (distanceToPlayer <= TargettingDistance);
 
-            if (canSeePlayer)
+            if (!canSeePlayer && (confiusionTargetTime > Time.timeSinceLevelLoad))
             {
-                target = player.transform.position;
-                trackingPlayer = true;
+                target = transform.position;
             }
             else
             {
-                target = spawnPoint;
-                trackingPlayer = false;
-            }
+                bool prevFrameTrackingPlayer = trackingPlayer;
 
-            if (prevFrameTrackingPlayer && !trackingPlayer)
-            {
-                confiusionTargetTime = (Time.timeSinceLevelLoad + Random.Range(2f, 6f));
+                if (canSeePlayer)
+                {
+                    target = player.transform.position;
+                    trackingPlayer = true;
+                }
+                else
+                {
+                    target = spawnPoint;
+                    trackingPlayer = false;
+                }
+
+                if (prevFrameTrackingPlayer && !trackingPlayer)
+                {
+                    confiusionTargetTime = (Time.timeSinceLevelLoad + Random.Range(2f, 6f));
+                }
             }
         }
 
         // Calc direction
-        direction = (transform.position - target);
+        direction = (runAwayDirection != null)
+            ? (runAwayDirection ?? Vector3.zero)
+            : (transform.position - target);
         direction.y = 0f;
         direction *= -1f;
+
+        // Clear run away dir
+        if (runAwayTimeProgress.IsDone())
+        {
+            runAwayDirection = null;
+        }
 
         // Rotate towards movement direction
         float directionAngle = Mathf.Atan2(-direction.z, direction.x) * Mathf.Rad2Deg;
@@ -79,14 +95,19 @@ public class Ghost : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.name == "TorchlightCollider" || collider.name == "CampfireTrigger")
+        if (collider.name == "TorchlightCollider")
         {
-            BackOff(ReceivedAttackForce);
+            rigidbody.AddForce((-direction * ReceivedAttackForce), ForceMode.Impulse);
         }
-    }
+        else if (collider.name == "CampfireTrigger")
+        {
+            Vector3 cv = campfire.transform.position;
+            Vector3 dir = cv - transform.position;
+            dir.Normalize();
 
-    private void BackOff(float scale)
-    {
-        rigidbody.AddForce((-direction * scale), ForceMode.Impulse);
+            runAwayDirection = dir;
+            runAwayTimeProgress.Start(5f);
+            trackingPlayer = false;
+        }
     }
 }
