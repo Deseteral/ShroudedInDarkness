@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
 
     private Image attackTimerProgress;
 
+    private GameObject torchlightPivot;
+    private float torchlightPivotTargetRotation = 0f;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -36,6 +39,7 @@ public class Player : MonoBehaviour
         globalVolume = GameObject.Find("Global Volume").GetComponent<Volume>();
         torchlightCollider = GameObject.Find("Player/TorchlightCollider");
         torchlightColliderActualColliderThatCollides = torchlightCollider.GetComponent<MeshCollider>();
+        torchlightPivot = GameObject.Find("Player/TorchlightPivot");
     }
 
     void Update()
@@ -50,6 +54,7 @@ public class Player : MonoBehaviour
                 IsTorchlightActive = true;
                 canAttackAfter = (Time.timeSinceLevelLoad + AttackTime + AttackRechargeTime);
                 noLongerAttackingAfter = (Time.timeSinceLevelLoad + AttackTime);
+                torchlightPivotTargetRotation = -112f;
             }
         }
         else
@@ -59,10 +64,15 @@ public class Player : MonoBehaviour
             attackTimerProgress.fillAmount = Mathf.Clamp(v, 0f, 1f);
         }
 
-        if (IsTorchlightActive && (Time.timeSinceLevelLoad >= noLongerAttackingAfter)) // Is no longer attacking?
+        if (IsTorchlightActive && (Time.timeSinceLevelLoad >= noLongerAttackingAfter)) // Is no longer attacking
         {
             IsTorchlightActive = false;
+            torchlightPivotTargetRotation = 0f;
         }
+
+        // Animate torchlight
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, torchlightPivotTargetRotation, 0f));
+        torchlightPivot.transform.localRotation = Quaternion.RotateTowards(torchlightPivot.transform.localRotation, targetRotation, 60f * Time.deltaTime);
 
         // Activate collider
         torchlightColliderActualColliderThatCollides.enabled = IsTorchlightActive;
