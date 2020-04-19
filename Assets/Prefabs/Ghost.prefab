@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 1500
   TargettingDistance: 20
-  ReceivedAttackForce: 550
+  ReceivedAttackForce: 200
   Health: 1
   Explosion: {fileID: 1364412342308310895, guid: 09a491d16d1ef41c1852862dcf136d01,
     type: 3}

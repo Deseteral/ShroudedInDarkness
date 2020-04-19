@@ -36,6 +36,7 @@ public class DialogSystem : MonoBehaviour
         dialogs = new Dictionary<string, DialogLine[]>();
         dialogs["Intro"] = Dialogs.Intro;
         dialogs["BlueFire"] = Dialogs.BlueFire;
+        dialogs["Ending"] = Dialogs.Ending;
 
         player = GameObject.Find("Player").GetComponent<Player>();
 
@@ -138,5 +139,14 @@ public static class Dialogs
         new DialogLine("x", "It means that you'll have to walk into the forest again..."),
         new DialogLine("p", "I will be back soon."),
         new DialogLine("p", "And this time I'll be back for good."),
+    };
+
+    public static DialogLine[] Ending = {
+        new DialogLine("x", "The darkness! It's gone!"),
+        new DialogLine("p", "And so are the monsters."),
+        new DialogLine("x", "You... you saved us!"),
+        new DialogLine("x", "We are safe now!"),
+        new DialogLine("p", "Looks like it! We can live peacefully now!"),
+        new DialogLine("x", "Thank you sister."),
     };
 }

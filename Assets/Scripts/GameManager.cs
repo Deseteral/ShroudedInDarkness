@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     private DialogSystem dialogSystem;
 
     private TimeProgress postIntroTimer = new TimeProgress();
+    private TimeProgress beforeEndingTimer = new TimeProgress();
+
+    private bool transitionToStageOneComplete = false;
 
     void Start()
     {
@@ -69,6 +72,29 @@ public class GameManager : MonoBehaviour
             postIntroText.GetComponent<UITextFader>().FadeOut(2f);
             postIntroTimer.Reset();
         }
+
+        // Ending sequence
+        if (beforeEndingTimer.IsDone())
+        {
+            // At this point the screen is black
+            GameObject.Find("Sun").GetComponent<Light>().intensity = 1f;
+            GameObject.Find("Campfire/Point Light").SetActive(false);
+            GameObject.Find("Campfire/Particle System").SetActive(false);
+            player.GetComponent<Player>().Respawn();
+            player.GetComponent<Player>().MovementEnabled = false;
+
+            dialogSystem.ChangeActive(true, "Ending");
+
+            beforeEndingTimer.Reset();
+            blackScreen.GetComponent<UIImageFader>().FadeOut(3f);
+        }
+
+        if (dialogSystem.HasFinished("Ending"))
+        {
+            player.GetComponent<Player>().MovementEnabled = false;
+            blackScreen.GetComponent<UIImageFader>().FadeIn(1f);
+            // TODO: Thank you screen
+        }
     }
 
     public void PickUpWood()
@@ -88,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerEnteredCampfire()
     {
-        if (CollectedWood == totalWoodCount) // Stage 1 complete
+        if (CollectedWood == totalWoodCount && !transitionToStageOneComplete) // Stage 1 complete
         {
             Debug.Log("stage 1 complete");
             dialogSystem.ChangeActive(true, "BlueFire");
@@ -101,6 +127,8 @@ public class GameManager : MonoBehaviour
 
             // Set player wand mode
             player.GetComponent<Player>().SetWandMode();
+
+            transitionToStageOneComplete = true;
         }
     }
 
@@ -118,6 +146,8 @@ public class GameManager : MonoBehaviour
         if (ghostCount == 0) // Stage 2 complete
         {
             Debug.Log("stage 2 complete");
+            blackScreen.GetComponent<UIImageFader>().FadeIn(3f);
+            beforeEndingTimer.Start(3f + 1f);
         }
     }
 }
