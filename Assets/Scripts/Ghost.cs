@@ -29,7 +29,10 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         // AI, set target
-        if (confiusionTargetTime > Time.timeSinceLevelLoad)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        bool canSeePlayer = (distanceToPlayer <= TargettingDistance);
+
+        if (!canSeePlayer && (confiusionTargetTime > Time.timeSinceLevelLoad))
         {
             target = transform.position;
         }
@@ -37,8 +40,7 @@ public class Ghost : MonoBehaviour
         {
             bool prevFrameTrackingPlayer = trackingPlayer;
 
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            if (distanceToPlayer <= TargettingDistance)
+            if (canSeePlayer)
             {
                 target = player.transform.position;
                 trackingPlayer = true;
