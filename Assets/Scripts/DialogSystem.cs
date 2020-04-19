@@ -26,6 +26,9 @@ public class DialogSystem : MonoBehaviour
 
     private Player player;
 
+    private bool finishedThisFrame = false;
+    private string lastDialogId = "";
+
     void Start()
     {
         dialogText = TextInstance.GetComponent<Text>();
@@ -41,12 +44,14 @@ public class DialogSystem : MonoBehaviour
 
     void Update()
     {
+        if (finishedThisFrame) finishedThisFrame = false;
         if (!Active) return;
 
         if (Input.GetKeyDown(KeyCode.Space)) index += 1;
         if (index >= activeDialog.Length)
         {
             ChangeActive(false, "");
+            finishedThisFrame = true;
             return;
         }
 
@@ -61,6 +66,7 @@ public class DialogSystem : MonoBehaviour
         {
             index = 0;
             activeDialog = dialogs[nextDialog];
+            lastDialogId = nextDialog;
             player.MovementEnabled = false;
             BackgroundInstance.GetComponent<Image>().color = bgColor;
             PressSpaceInstance.GetComponent<Text>().color = psColor;
@@ -73,6 +79,11 @@ public class DialogSystem : MonoBehaviour
             BackgroundInstance.GetComponent<Image>().color = noColor;
             PressSpaceInstance.GetComponent<Text>().color = noColor;
         }
+    }
+
+    public bool HasFinished(string dialogId)
+    {
+        return (finishedThisFrame && lastDialogId == dialogId);
     }
 }
 

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private GameObject blackScreen;
     private GameObject woodCountText;
     private GameObject allWoodText;
+    private GameObject postIntroText;
     private GameObject deathText;
 
     private GameObject campfireLight;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private DialogSystem dialogSystem;
 
+    private TimeProgress postIntroTimer = new TimeProgress();
+
     void Start()
     {
         totalWoodCount = GameObject.FindGameObjectsWithTag("BlueLogs").Length;
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
         woodCountText = GameObject.Find("GameManager/Canvas/WoodCountText");
         allWoodText = GameObject.Find("GameManager/Canvas/AllWoodText");
         deathText = GameObject.Find("GameManager/Canvas/DeathText");
+        postIntroText = GameObject.Find("GameManager/Canvas/PostIntroText");
         blackScreen = GameObject.Find("GameManager/Canvas/BlackScreen");
 
         campfireLight = GameObject.Find("Campfire/Point Light");
@@ -53,6 +57,17 @@ public class GameManager : MonoBehaviour
             deathText.GetComponent<UITextFader>().FadeOut(2f);
             blackScreen.GetComponent<UIImageFader>().FadeOut(2f);
             deathScreenTimer.Reset();
+        }
+
+        if (dialogSystem.HasFinished("Intro"))
+        {
+            postIntroText.GetComponent<UITextFader>().FadeIn(2f);
+            postIntroTimer.Start(7f);
+        }
+        if (postIntroTimer.IsDone())
+        {
+            postIntroText.GetComponent<UITextFader>().FadeOut(2f);
+            postIntroTimer.Reset();
         }
     }
 
