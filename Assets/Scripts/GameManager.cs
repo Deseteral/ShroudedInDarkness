@@ -7,12 +7,14 @@ public class GameManager : MonoBehaviour
     private int totalWoodCount = 12;
 
     // UI
+    private GameObject blackScreen;
     private GameObject woodCountText;
     private GameObject allWoodText;
     private GameObject deathText;
-    private GameObject blackScreen;
 
     private GameObject campfireLight;
+    private GameObject playerPointLight;
+    private GameObject playerTorchlight;
 
     private TimeProgress deathScreenTimer = new TimeProgress();
 
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
         blackScreen = GameObject.Find("GameManager/Canvas/BlackScreen");
 
         campfireLight = GameObject.Find("Campfire/Point Light");
+        playerPointLight = GameObject.Find("Player/TorchlightPointLight");
+        playerTorchlight = GameObject.Find("Player/Torchlight");
 
         player = GameObject.Find("Player");
     }
@@ -67,6 +71,8 @@ public class GameManager : MonoBehaviour
             // Change fire color
             Color targetColor = new Color((65f / 255f), (20f / 255f), (121f / 255f), 1f);
             campfireLight.GetComponent<LightColorChange>().ChangeColor(targetColor, 7f);
+            playerPointLight.GetComponent<LightColorChange>().ChangeColor(targetColor, 7f);
+            playerTorchlight.GetComponent<LightColorChange>().ChangeColor(targetColor, 7f);
 
             // Set player wand mode
             player.GetComponent<Player>().SetWandMode();
