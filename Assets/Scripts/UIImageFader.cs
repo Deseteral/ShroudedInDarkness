@@ -10,6 +10,10 @@ public class UIImageFader : MonoBehaviour
     void Start()
     {
         image = GetComponent<Image>();
+
+        Color c = image.color;
+        c.a = TargetAlpha;
+        image.color = c;
     }
 
     void Update()

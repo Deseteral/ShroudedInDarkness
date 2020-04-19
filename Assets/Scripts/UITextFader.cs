@@ -10,6 +10,10 @@ public class UITextFader : MonoBehaviour
     void Start()
     {
         text = GetComponent<Text>();
+
+        Color c = text.color;
+        c.a = TargetAlpha;
+        text.color = c;
     }
 
     void Update()

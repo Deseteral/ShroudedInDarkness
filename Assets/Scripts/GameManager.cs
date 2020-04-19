@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
         // Kick off the gameplay
         dialogSystem.ChangeActive(true, "Intro");
+        blackScreen.GetComponent<UIImageFader>().FadeOut(5f);
     }
 
     void Update()
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
         if (CollectedWood == totalWoodCount) // Stage 1 complete
         {
             Debug.Log("stage 1 complete");
+            dialogSystem.ChangeActive(true, "BlueFire");
 
             // Change fire color
             Color targetColor = new Color((65f / 255f), (20f / 255f), (121f / 255f), 1f);
