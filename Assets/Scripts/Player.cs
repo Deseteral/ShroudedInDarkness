@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -21,14 +22,17 @@ public class Player : MonoBehaviour
     private Volume globalVolume;
 
     public int AttackTime = 1;
-    public int AttackRechargeTime = 4;
+    public int AttackRechargeTime = 3;
     private float canAttackAfter = float.MinValue;
     private float noLongerAttackingAfter = float.MinValue;
+
+    private Image attackTimerProgress;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         torchlightLight = GameObject.Find("Player/Torchlight").GetComponent<Light>();
+        attackTimerProgress = GameObject.Find("Player/Canvas/AttackTimerProgress").GetComponent<Image>();
         globalVolume = GameObject.Find("Global Volume").GetComponent<Volume>();
         torchlightCollider = GameObject.Find("Player/TorchlightCollider");
         torchlightColliderActualColliderThatCollides = torchlightCollider.GetComponent<MeshCollider>();
@@ -36,18 +40,27 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Is attacking
-        if (Time.timeSinceLevelLoad >= canAttackAfter && Input.GetMouseButton(0))
+        // Atack logic
+        if (Time.timeSinceLevelLoad >= canAttackAfter) // Can attack
         {
-            Debug.Log("new attack");
-            IsTorchlightActive = true;
-            canAttackAfter = (Time.timeSinceLevelLoad + AttackTime + AttackRechargeTime);
-            noLongerAttackingAfter = (Time.timeSinceLevelLoad + AttackTime);
+            attackTimerProgress.fillAmount = 0f;
+
+            if (Input.GetMouseButton(0))
+            {
+                IsTorchlightActive = true;
+                canAttackAfter = (Time.timeSinceLevelLoad + AttackTime + AttackRechargeTime);
+                noLongerAttackingAfter = (Time.timeSinceLevelLoad + AttackTime);
+            }
+        }
+        else
+        {
+            // Display attack timer progress
+            float v = (canAttackAfter - Time.timeSinceLevelLoad) / (AttackTime + AttackRechargeTime);
+            attackTimerProgress.fillAmount = Mathf.Clamp(v, 0f, 1f);
         }
 
-        if (IsTorchlightActive && (Time.timeSinceLevelLoad >= noLongerAttackingAfter))
+        if (IsTorchlightActive && (Time.timeSinceLevelLoad >= noLongerAttackingAfter)) // Is no longer attacking?
         {
-            Debug.Log("attack off");
             IsTorchlightActive = false;
         }
 

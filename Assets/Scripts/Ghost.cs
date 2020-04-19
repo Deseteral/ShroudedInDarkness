@@ -4,6 +4,7 @@ public class Ghost : MonoBehaviour
 {
     public float Speed = 1000f;
     public float TargettingDistance = 20f;
+    public float ReceivedAttackForce = 550f;
 
     private GameObject player;
     private GameObject torchlightCollider;
@@ -74,16 +75,16 @@ public class Ghost : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
         if (collider.name == "TorchlightCollider" || collider.name == "CampfireTrigger")
         {
-            BackOff(0.5f);
+            BackOff(ReceivedAttackForce);
         }
     }
 
     private void BackOff(float scale)
     {
-        rigidbody.AddForce((-direction * Speed * scale), ForceMode.Force);
+        rigidbody.AddForce((-direction * scale), ForceMode.Impulse);
     }
 }
