@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private TimeProgress deathScreenTimer = new TimeProgress();
 
     private GameObject player;
+    private DialogSystem dialogSystem;
 
     void Start()
     {
@@ -37,6 +38,10 @@ public class GameManager : MonoBehaviour
         playerTorchlight = GameObject.Find("Player/Torchlight");
 
         player = GameObject.Find("Player");
+        dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
+
+        // Kick off the gameplay
+        dialogSystem.ChangeActive(true, "Intro");
     }
 
     void Update()
