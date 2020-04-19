@@ -4,8 +4,7 @@ public class LightColorChange : MonoBehaviour
 {
     private new Light light;
     private Color targetColor;
-    private float targetTime = float.MinValue;
-    private float time;
+    private TimeProgress timeProgress = new TimeProgress();
 
     void Start()
     {
@@ -14,17 +13,12 @@ public class LightColorChange : MonoBehaviour
 
     void Update()
     {
-        if (targetTime > Time.timeSinceLevelLoad)
-        {
-            float progress = (targetTime - Time.timeSinceLevelLoad) / time;
-            light.color = Color.Lerp(light.color, targetColor, progress);
-        }
+        light.color = Color.Lerp(light.color, targetColor, timeProgress.GetProgress());
     }
 
-    public void ChangeColor(Color targetColor, float time)
+    public void ChangeColor(Color targetColor, float duration)
     {
         this.targetColor = targetColor;
-        this.time = time;
-        targetTime = Time.timeSinceLevelLoad + time;
+        timeProgress.Start(duration);
     }
 }

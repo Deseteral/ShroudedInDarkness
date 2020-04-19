@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class Player : MonoBehaviour
 {
     public float Speed = 1000f;
-    public float DamageAmount = 0.01f;
+    public float DamageAmount = 0.1f;
 
     private GameObject torchlightCollider;
     private MeshCollider torchlightColliderActualColliderThatCollides;
@@ -33,8 +33,11 @@ public class Player : MonoBehaviour
 
     private GameManager gameManager;
 
+    private Vector3 spawnPoint;
+
     void Start()
     {
+        spawnPoint = transform.position;
         rigidbody = GetComponent<Rigidbody>();
         torchlightLight = GameObject.Find("Player/Torchlight").GetComponent<Light>();
         attackTimerProgress = GameObject.Find("Player/Canvas/AttackTimerProgress").GetComponent<Image>();
@@ -107,7 +110,9 @@ public class Player : MonoBehaviour
         // TODO: Check health and die
         if (Health <= 0f)
         {
-            Debug.Log("YOU DIED!");
+            gameManager.PlayerDies();
+            Health = 1f;
+            transform.position = spawnPoint;
         }
 
         // Restore health
