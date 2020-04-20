@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
 
     public bool MovementEnabled = true;
 
+    private AudioSource magicSoundSource;
+
     void Start()
     {
         spawnPoint = transform.position;
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
         torchlightColliderActualColliderThatCollides = torchlightCollider.GetComponent<MeshCollider>();
         torchlightPivot = GameObject.Find("Player/TorchlightPivot");
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        magicSoundSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -80,6 +83,7 @@ public class Player : MonoBehaviour
                     bpos.y += 0.5f;
                     bpos += (transform.right * 2f);
                     GameObject b = Instantiate(Bullet, bpos, transform.rotation);
+                    magicSoundSource.Play();
                 }
             }
         }
