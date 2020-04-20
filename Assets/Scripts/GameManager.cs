@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         {
             player.GetComponent<Player>().MovementEnabled = false;
             blackScreen.GetComponent<UIImageFader>().FadeIn(3f);
-            thankYouText.GetComponent<UIImageFader>().FadeIn(3f);
+            thankYouText.GetComponent<UITextFader>().FadeIn(3f);
         }
     }
 
