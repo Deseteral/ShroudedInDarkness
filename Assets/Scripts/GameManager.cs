@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     private GameObject playerPointLight;
     private GameObject playerTorchlight;
 
+    private AudioSource noise;
+
     private TimeProgress deathScreenTimer = new TimeProgress();
 
     private GameObject player;
@@ -34,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     private bool transitionToStageTwoComplete = false;
     private bool wasTutorialHidden = false;
+
+    private bool ending = false;
 
     void Start()
     {
@@ -58,6 +62,8 @@ public class GameManager : MonoBehaviour
         campfireLight = GameObject.Find("Campfire/Point Light");
         playerPointLight = GameObject.Find("Player/TorchlightPointLight");
         playerTorchlight = GameObject.Find("Player/Torchlight");
+
+        noise = Camera.main.GetComponent<AudioSource>();
 
         player = GameObject.Find("Player");
         dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
@@ -110,6 +116,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Ending sequence
+        noise.volume = Mathf.Lerp(0.05f, 0f, ending ? 1f : beforeEndingTimer.GetProgress());
         if (beforeEndingTimer.IsDone())
         {
             // At this point the screen is black
@@ -123,6 +130,8 @@ public class GameManager : MonoBehaviour
 
             beforeEndingTimer.Reset();
             blackScreen.GetComponent<UIImageFader>().FadeOut(3f);
+
+            ending = true;
         }
 
         if (dialogSystem.HasFinished("Ending"))
