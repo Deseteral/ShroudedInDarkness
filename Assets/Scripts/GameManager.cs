@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     private GameObject woodCountText;
     private GameObject allWoodText;
     private GameObject postIntroText;
+    private GameObject thankYouText;
+    private GameObject tutorialTitle;
+    private GameObject tutorialText;
     private GameObject deathText;
 
     private GameObject campfireLight;
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
     private TimeProgress beforeEndingTimer = new TimeProgress();
 
     private bool transitionToStageTwoComplete = false;
+    private bool wasTutorialHidden = false;
 
     void Start()
     {
@@ -46,6 +50,9 @@ public class GameManager : MonoBehaviour
         allWoodText = GameObject.Find("GameManager/Canvas/AllWoodText");
         deathText = GameObject.Find("GameManager/Canvas/DeathText");
         postIntroText = GameObject.Find("GameManager/Canvas/PostIntroText");
+        thankYouText = GameObject.Find("GameManager/Canvas/ThankYouText");
+        tutorialTitle = GameObject.Find("GameManager/Canvas/TutorialTitle");
+        tutorialText = GameObject.Find("GameManager/Canvas/TutorialText");
         blackScreen = GameObject.Find("GameManager/Canvas/BlackScreen");
 
         campfireLight = GameObject.Find("Campfire/Point Light");
@@ -55,13 +62,24 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player");
         dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
 
-        // Kick off the gameplay
-        dialogSystem.ChangeActive(true, "Intro");
-        blackScreen.GetComponent<UIImageFader>().FadeOut(5f);
     }
 
     void Update()
     {
+        if (!wasTutorialHidden)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                wasTutorialHidden = true;
+                blackScreen.GetComponent<UIImageFader>().FadeOut(10f);
+                tutorialTitle.GetComponent<UITextFader>().FadeOut(10f);
+                tutorialText.GetComponent<UITextFader>().FadeOut(10f);
+
+                // Kick off the gameplay
+                dialogSystem.ChangeActive(true, "Intro");
+            }
+        }
+
         if (deathScreenTimer.IsDone())
         {
             player.GetComponent<Player>().Respawn();
@@ -110,8 +128,8 @@ public class GameManager : MonoBehaviour
         if (dialogSystem.HasFinished("Ending"))
         {
             player.GetComponent<Player>().MovementEnabled = false;
-            blackScreen.GetComponent<UIImageFader>().FadeIn(1f);
-            // TODO: Thank you screen
+            blackScreen.GetComponent<UIImageFader>().FadeIn(3f);
+            thankYouText.GetComponent<UIImageFader>().FadeIn(3f);
         }
     }
 
