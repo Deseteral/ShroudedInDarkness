@@ -5562,11 +5562,11 @@ RectTransform:
   m_Father: {fileID: 1584527461}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 352.8}
-  m_SizeDelta: {x: 964.9, y: 199.1}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -48}
+  m_SizeDelta: {x: 0, y: 199.09998}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &196290257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5599,11 +5599,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fcd3efba3f6ac4a3d9573dcb0c8fab61, type: 3}
-    m_FontSize: 76
+    m_FontSize: 56
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 136
+    m_MinSize: 0
+    m_MaxSize: 300
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -8438,11 +8438,11 @@ RectTransform:
   m_Father: {fileID: 1584527461}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 352.8}
-  m_SizeDelta: {x: 1187.5, y: 287.47}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -48}
+  m_SizeDelta: {x: 0, y: 287.46997}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &348147416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8476,10 +8476,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fcd3efba3f6ac4a3d9573dcb0c8fab61, type: 3}
-    m_FontSize: 76
+    m_FontSize: 56
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 5
     m_MaxSize: 136
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -8487,7 +8487,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Head into the forest, find and bring back here the Magic Wood.
+  m_Text: 'Head into the forest, find and bring back here
+
+    the Magic Wood.'
 --- !u!222 &348147418
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10647,7 +10649,7 @@ Canvas:
   m_GameObject: {fileID: 416876304}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 2121630840}
   m_PlaneDistance: 0.3
   m_PixelPerfect: 0
@@ -20396,7 +20398,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 24, y: 24}
-  m_SizeDelta: {x: -48, y: 357}
+  m_SizeDelta: {x: -48, y: 145}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &746417522
 MonoBehaviour:
@@ -23676,7 +23678,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fcd3efba3f6ac4a3d9573dcb0c8fab61, type: 3}
-    m_FontSize: 67
+    m_FontSize: 42
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 4
@@ -23687,7 +23689,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Some test text Here omg this i
+  m_Text: Yes, with a little bit of luck the fire from those magic branches might
+    exile those monsters.
 --- !u!222 &865228440
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23712,7 +23715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 48, y: -37.799988}
+  m_AnchoredPosition: {x: 48, y: -260}
   m_SizeDelta: {x: -96, y: 417}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &865290385
@@ -44253,11 +44256,11 @@ RectTransform:
   m_Father: {fileID: 1584527461}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 352.8}
-  m_SizeDelta: {x: 964.9, y: 199.1}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -48}
+  m_SizeDelta: {x: 0, y: 199.09998}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1710910125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49947,11 +49950,11 @@ RectTransform:
   m_Father: {fileID: 1584527461}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -147.71}
-  m_SizeDelta: {x: 1187.5, y: 432.2}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 260}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1985129687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49978,7 +49981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -51617,11 +51620,11 @@ RectTransform:
   m_Father: {fileID: 1584527461}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 352.8}
-  m_SizeDelta: {x: 1187.5, y: 432.2}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -48}
+  m_SizeDelta: {x: 0, y: 432.2}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2066169113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54014,11 +54017,11 @@ RectTransform:
   m_Father: {fileID: 1584527461}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 352.8}
-  m_SizeDelta: {x: 1187.5, y: 432.2}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 48}
+  m_SizeDelta: {x: 0, y: 128}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2123354019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54045,7 +54048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
