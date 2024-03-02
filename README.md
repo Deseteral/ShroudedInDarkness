@@ -4,7 +4,7 @@
 ![Screenshot](promo_assets/campfire.gif?raw=true "Screenshot")
 
 My game for [Ludum Dare 46](https://ldjam.com/events/ludum-dare/46/shrouded-in-darkness).
-You can download and play it on [my itch.io page](https://deseteral.itch.io/shelter-rampage).
+You can download and play it on [my itch.io page](https://deseteral.itch.io/shrouded-in-darkness).
 
 ## Building
 This project was built using Unity version `2019.3.9f1`.
